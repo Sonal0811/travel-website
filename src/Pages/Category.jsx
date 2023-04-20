@@ -93,7 +93,7 @@ export default function Category() {
         )}
         </>
       ): (
-        <p>There are no current offers</p>
+        <p>There are no current {params.categoryName === "national" ? "national places." : "international places."}</p>
       ) }
       </div>
   )
