@@ -16,6 +16,10 @@ import "react-toastify/dist/ReactToastify.css";
 import CreateListingDestination from "./Pages/CreateListingDestination";
 import CreateListingHotels from "./Pages/CreateListingHotels";
 import CreateListingFlights from "./Pages/CreateListingFlights";
+import EditListingDestination from "./Pages/EditListingDestination";
+import EditListingFlights from "./Pages/EditListingFlights";
+import EditListingHotels from "./Pages/EditListingHotels";
+import DestinationDetail from "./Pages/DestinationDetail";
 function App() {
   return (
     <>
@@ -32,6 +36,7 @@ function App() {
            <Route path='/forgot-Password' element={<ForgotPass />}/>
            <Route path="/forgot-password-staff" element={<ForgotPassStaff />}/>
            <Route path='/offers' element={<Offers />}/>
+           <Route path='/category/:categoryName/:listingID' element={<DestinationDetail />}/>
            <Route path='/flights' element={<Flights />}/>
            <Route path='/hotels' element={<Hotels />}/>
            <Route path="/create-listing-destination" element={<PrivateRoute/>}>
@@ -42,6 +47,15 @@ function App() {
            </Route>
            <Route path="/create-listing-flights" element={<PrivateRoute/>}>
            <Route path='/create-listing-flights' element={<CreateListingFlights />}/>
+           </Route>
+           <Route path="/edit-listing-destination" element={<PrivateRoute/>}>
+           <Route path='/edit-listing-destination/:listingID' element={<EditListingDestination/>}/>
+           </Route>
+           <Route path="/edit-listing-hotels" element={<PrivateRoute/>}>
+           <Route path='/edit-listing-hotels' element={<EditListingFlights />}/>
+           </Route>
+           <Route path="/edit-listing-flights" element={<PrivateRoute/>}>
+           <Route path='/edit-listing-flights' element={<EditListingHotels />}/>
            </Route>
         </Routes>
       </Router>
