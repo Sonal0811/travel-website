@@ -20,6 +20,7 @@ import EditListingDestination from "./Pages/EditListingDestination";
 import EditListingFlights from "./Pages/EditListingFlights";
 import EditListingHotels from "./Pages/EditListingHotels";
 import DestinationDetail from "./Pages/DestinationDetail";
+import Category from "./Pages/Category";
 function App() {
   return (
     <>
@@ -36,6 +37,7 @@ function App() {
            <Route path='/forgot-Password' element={<ForgotPass />}/>
            <Route path="/forgot-password-staff" element={<ForgotPassStaff />}/>
            <Route path='/offers' element={<Offers />}/>
+           <Route path='/category/:categoryName' element={<Category />}/>
            <Route path='/category/:categoryName/:listingID' element={<DestinationDetail />}/>
            <Route path='/flights' element={<Flights />}/>
            <Route path='/hotels' element={<Hotels />}/>

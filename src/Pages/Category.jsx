@@ -4,17 +4,19 @@ import { db } from '../firebase';
 import { toast } from 'react-toastify';
 import Spinner from '../components/Spinner';
 import Listingdestitems from '../components/Listingdestitems';
+import { useParams } from 'react-router';
 
-export default function Offers() {
+export default function Category() {
   const [destination , setDestination] = useState(null);
   const [loading , setLoading] = useState(true);
   const [lastFetchDestination , setLastFetchDestination] = useState(null);
+  const params =useParams();
   useEffect(()=>{
    async function fetchDestination(){
     
      try{
         const destinationRef = collection(db,"listing-destinations")
-        const  q =query (destinationRef , where("offer" , "==", true), orderBy("timestamp", "desc"), limit(8));
+        const  q =query (destinationRef , where("type" , "==", params.categoryName), orderBy("timestamp", "desc"), limit(8));
          const querySnap = await getDocs(q);
          const lastVisible = querySnap.docs[querySnap.docs.length-1]
          setLastFetchDestination(lastVisible);
@@ -36,12 +38,12 @@ export default function Offers() {
    } 
    fetchDestination()
  
-  },[]);
+  },[params.categoryName]);
 
  async function onFetchMoreListing(){
   try{
     const destinationRef = collection(db,"listing-destinations")
-    const  q =query (destinationRef , where("offer" , "==", true), orderBy("timestamp", "desc"),
+    const  q =query (destinationRef , where("type" , "==", params.categoryName), orderBy("timestamp", "desc"),
     startAfter(lastFetchDestination), limit(4));
      const querySnap = await getDocs(q);
      const lastVisible = querySnap.docs[querySnap.docs.length-1]
@@ -67,7 +69,9 @@ export default function Offers() {
 
   return (
     <div className='max-w-6xl mx-auto px-3' >
-      <h1 className='text-3xl text-center mt-6 front-bold mb-6'>Offers</h1>
+      <h1 className='text-3xl text-center mt-6 front-bold mb-6'>
+        {params.categoryName === "national" ? "National Places" : "Internationl Places"}
+      </h1>
       {loading ? (
         <Spinner />
       ):destination && destination.length >0 ? (
