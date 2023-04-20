@@ -239,13 +239,13 @@ export default function EditListingDestination() {
                 <div className='flex space-x-6 justify-start mb-6'>
                     <div className=''>
                         <p className='text-lg font-semibold '>Latitude</p>
-                        <input type="number" id="latitude" value={latitude} onChange={onChange} 
+                        <input type="text" id="latitude" value={latitude} onChange={onChange} 
                         maxLength="90" minLength="-90" className="w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded transition duration-150 ease-in-out focus:bg-white focus:text-gray-700 focus:border-teal-600 text-center"/>
                     </div>
                     <div className="">
               <p className="text-lg font-semibold">Longitude</p>
               <input
-                type="number"
+                type="text"
                 id="longitude"
                 value={longitude}
                 onChange={onChange}

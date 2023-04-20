@@ -10,7 +10,6 @@ import { useNavigate } from 'react-router-dom';
 export default function CreateListingDestination() {
     const navigate = useNavigate();
     const auth = getAuth();
-    const[geolocationEnabled, setGeolocationEnabled] = useState(false);
     const [loading, setLoading] = useState(false);
     const [formData, setFormData] = useState({
         type: 'international',
@@ -205,17 +204,17 @@ export default function CreateListingDestination() {
             placeholder='Enter address' maxLength="500" minLength="4" required className='w-full rounded px-4 py-2 text-xl text-grey-700 bg-white border border-gray-300
             transition  duration-150 ease-in-out focus:text-gray-700 focus:bg-white
             focus:border-teal-600 '/>
-            {!geolocationEnabled &&(
+            
                 <div className='flex space-x-6 justify-start mb-6'>
                     <div className=''>
                         <p className='text-lg font-semibold '>Latitude</p>
-                        <input type="number" id="latitude" value={latitude} onChange={onChange} 
+                        <input type="text" id="latitude" value={latitude} onChange={onChange} 
                         maxLength="90" minLength="-90" className="w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded transition duration-150 ease-in-out focus:bg-white focus:text-gray-700 focus:border-teal-600 text-center"/>
                     </div>
                     <div className="">
               <p className="text-lg font-semibold">Longitude</p>
               <input
-                type="number"
+                type="text"
                 id="longitude"
                 value={longitude}
                 onChange={onChange}
@@ -226,7 +225,7 @@ export default function CreateListingDestination() {
               />
             </div>
                 </div>
-            )}
+         
             <p className='text-lg mt-6 font-semibold mb-1'>Description </p>
             <textarea id='description' value={description} onChange={onChange}
             placeholder='Description' maxLength="500" minLength="4" required className='w-full rounded px-4 py-2 text-xl text-grey-700 bg-white border border-gray-300
@@ -266,7 +265,7 @@ export default function CreateListingDestination() {
                 id="regularPrice"
                 value={regularPrice}
                 onChange={onChange}
-                min="50"
+                min="30"
                 max="400000000"
                 required
                 className="w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded transition duration-150 ease-in-out focus:text-gray-700 focus:bg-white focus:border-slate-600 text-center"
