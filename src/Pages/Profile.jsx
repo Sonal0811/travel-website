@@ -9,12 +9,14 @@ import { collection, deleteDoc, doc, getDocs, orderBy, query, updateDoc, where }
 import {FaHotel} from "react-icons/fa";
 import {MdFlight} from "react-icons/md";
 import {SiYourtraveldottv} from "react-icons/si";
-import Listingdestitems from '../components/Listingdestitems';
+import Listingdestitems from '../components/Listingitems';
 export default function Profile() {
     const auth = getAuth()
     const navigate = useNavigate();
     const [changeDetail, setChangeDetail] = useState(false)
     const [listingdestinations, setListingdestinations] = useState(null);
+    const [listingFlights, setListingFlights] = useState(null);
+    const [listingHotels, setListingHotels] = useState(null);
     const [loading, setLoading] = useState(true);
     const[FormData, setFormData]= useState({
         name: auth.currentUser.displayName,
@@ -49,23 +51,10 @@ export default function Profile() {
         toast.error("Could not update the profile details")
       }
     }
-    useEffect(() =>{
-      async function fetchstaffdestinationlisting(){
-        const listingRef = collection(db,"listing-destinations");
-        const q =query(listingRef, where("userRef", "==", auth.currentUser.uid), orderBy("timestamp", "desc"));
-        const querySnap = await getDocs(q);
-        let listingdestinations = [];
-        querySnap.forEach((doc)=>{
-          return listingdestinations.push({
-           id: doc.id,
-           data: doc.data(),
-          });
-        });
-        setListingdestinations(listingdestinations);
-        setLoading(false);
-      }
-      fetchstaffdestinationlisting();
-    }, [auth.currentUser.uid])
+    // useEffect(() =>{
+      
+    // }, [auth.currentUser.uid])
+
     async function onDelete(listingID) {
       if (window.confirm("Are you sure you want to delete?")) {
         await deleteDoc(doc(db, "listing-destinations", listingID));
@@ -79,6 +68,96 @@ export default function Profile() {
     function onEdit(listingID) {
       navigate(`/edit-listing-destination/${listingID}`);
     }
+
+
+    // useEffect(() =>{
+      
+    // }, [auth.currentUser.uid])
+
+    async function onDeleteHotel(listingID) {
+      if (window.confirm("Are you sure you want to delete?")) {
+        await deleteDoc(doc(db, "listing-hotels", listingID));
+        const updatedListings = listingHotels.filter(
+          (listing) => listing.id !== listingID
+        );
+        setListingHotels(updatedListings);
+        toast.success("Successfully deleted the listing");
+      }
+    }
+    async function onDeleteFlight(listingID) {
+      if (window.confirm("Are you sure you want to delete?")) {
+        await deleteDoc(doc(db, "listing-flight", listingID));
+        const updatedListings = listingFlights.filter(
+          (listing) => listing.id !== listingID
+        );
+        setListingFlights(updatedListings);
+        toast.success("Successfully deleted the listing");
+      }
+    }
+    function onEditHotel(listingID) {
+      navigate(`/edit-listing-hotels/${listingID}`);
+    }
+
+    useEffect(() =>{
+      async function fetchstaffdestinationlisting(){
+        const listingRef = collection(db,"listing-destinations");
+        const q =query(listingRef, where("userRef", "==", auth.currentUser.uid), orderBy("timestamp", "desc"));
+        const querySnap = await getDocs(q);
+        let listingdestinations = [];
+        querySnap.forEach((doc)=>{
+          return listingdestinations.push({
+           id: doc.id,
+           data: doc.data(),
+          });
+        });
+        setListingdestinations(listingdestinations);
+        // setLoading(false);
+      }
+      fetchstaffdestinationlisting();
+      async function fetchstaffhotelslisting(){
+        const listingRef = collection(db,"listing-hotels");
+        const q =query(listingRef, where("userRef", "==", auth.currentUser.uid), orderBy("timestamp", "desc"));
+        const querySnap = await getDocs(q);
+        let listinghotel = [];
+        querySnap.forEach((doc)=>{
+          return listinghotel.push({
+           id: doc.id,
+           data: doc.data(),
+          });
+        });
+        setListingHotels(listinghotel);
+     
+      }
+      fetchstaffhotelslisting();
+      async function fetchstaffflightslisting(){
+        const listingRef = collection(db,"listing-flight");
+        const q =query(listingRef, where("userRef", "==", auth.currentUser.uid), orderBy("timestamp", "desc"));
+        const querySnap = await getDocs(q);
+        let listingflights = [];
+        querySnap.forEach((doc)=>{
+          return listingflights.push({
+           id: doc.id,
+           data: doc.data(),
+          });
+        });
+        setListingFlights(listingflights);
+     
+        setLoading(false);
+      }
+      fetchstaffflightslisting();
+    }, [auth.currentUser.uid])
+  
+    
+  
+    function onEditFlights(listingID) {
+      navigate(`/edit-listing-flights/${listingID}`);
+    }
+
+console.log(listingHotels);
+    
+
+
+
   return (
     <>
     <section className='max-w-6xl mx-auto flex justify-center items-center
@@ -133,7 +212,7 @@ export default function Profile() {
     <div className="max-w-6xl px-3 mt-6 mx-auto">
       {!loading && listingdestinations.length > 0 &&(
         <>
-        <h2 className='text-2xl text-center font-semibold mb-6'>My Hotel Listing</h2>
+        <h2 className='text-2xl text-center font-semibold mb-6'>My Destination Listing</h2>
         <ul className="sm:grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
               {listingdestinations.map((listing) => (
                 <Listingdestitems
@@ -142,12 +221,52 @@ export default function Profile() {
                   listing={listing.data}
                   onDelete={() => onDelete(listing.id)}
                   onEdit={() => onEdit(listing.id)}
+                  category = {"category"}
                 />
               ))}
             </ul>
         </>
         )}
     </div>
+    <div className="max-w-6xl px-3 mt-6 mx-auto">
+      {!loading && listingHotels.length > 0 &&(
+        <>
+        <h2 className='text-2xl text-center font-semibold mb-6'>My Hotels Listing</h2>
+        <ul className="sm:grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
+              {listingHotels.map((listing) => (
+                <Listingdestitems
+                  key={listing.id}
+                  id={listing.id}
+                  listing={listing.data}
+                  onDelete={() => onDeleteHotel(listing.id)}
+                  onEdit={() => onEditHotel(listing.id)}
+                  category= {"categoryhotel"}
+                />
+              ))}
+            </ul>
+        </>
+        )}
+    </div>
+    <div className="max-w-6xl px-3 mt-6 mx-auto">
+      {!loading && listingFlights.length > 0 &&(
+        <>
+        <h2 className='text-2xl text-center font-semibold mb-6'>My Flights Listing</h2>
+        <ul className="sm:grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
+              {listingFlights.map((listing) => (
+                <Listingdestitems
+                  key={listing.id}
+                  id={listing.id}
+                  listing={listing.data}
+                  onDelete={() => onDeleteFlight(listing.id)}
+                  onEdit={() => onEditFlights(listing.id)}
+                  category= {"categoryflight"}
+                />
+              ))}
+            </ul>
+        </>
+        )}
+    </div>
+  
     </>
   )
 }

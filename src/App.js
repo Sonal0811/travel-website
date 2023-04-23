@@ -21,6 +21,12 @@ import EditListingFlights from "./Pages/EditListingFlights";
 import EditListingHotels from "./Pages/EditListingHotels";
 import DestinationDetail from "./Pages/DestinationDetail";
 import Category from "./Pages/Category";
+import FlightDetail from "./Pages/FlightDetail";
+import HotelDetail from "./Pages/HotelDetail";
+import OfferFlight from "./Pages/OfferFlight";
+import OfferHotel from "./Pages/OfferHotel";
+import CategoryHotel from "./Pages/CategoryHotel";
+import CategoryFlight from "./Pages/CategoryFlight";
 function App() {
   return (
     <>
@@ -37,8 +43,15 @@ function App() {
            <Route path='/forgot-Password' element={<ForgotPass />}/>
            <Route path="/forgot-password-staff" element={<ForgotPassStaff />}/>
            <Route path='/offers' element={<Offers />}/>
+           <Route path='/offerFlight' element={<OfferFlight />}/>
+           <Route path='/offerHotel' element={<OfferHotel />}/>
+
            <Route path='/category/:categoryName' element={<Category />}/>
+           <Route path='/categoryhotel/:categoryName' element={<CategoryHotel />}/>
+           <Route path='/categoryflight/:categoryName' element={<CategoryFlight />}/>
            <Route path='/category/:categoryName/:listingID' element={<DestinationDetail />}/>
+           <Route path='/categoryflight/:categoryName/:listingID' element={<FlightDetail />}/>
+           <Route path='/categoryhotel/:categoryName/:listingID' element={<HotelDetail />}/>
            <Route path='/flights' element={<Flights />}/>
            <Route path='/hotels' element={<Hotels />}/>
            <Route path="/create-listing-destination" element={<PrivateRoute/>}>
@@ -54,10 +67,10 @@ function App() {
            <Route path='/edit-listing-destination/:listingID' element={<EditListingDestination/>}/>
            </Route>
            <Route path="/edit-listing-hotels" element={<PrivateRoute/>}>
-           <Route path='/edit-listing-hotels' element={<EditListingFlights />}/>
+           <Route path='/edit-listing-hotels/:listingID' element={<EditListingHotels/>}/>
            </Route>
            <Route path="/edit-listing-flights" element={<PrivateRoute/>}>
-           <Route path='/edit-listing-flights' element={<EditListingHotels />}/>
+           <Route path='/edit-listing-flights/:listingID' element={<EditListingFlights/>}/>
            </Route>
         </Routes>
       </Router>

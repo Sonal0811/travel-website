@@ -1,21 +1,46 @@
 import {useLocation, useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from 'react'
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../firebase";
 
 export default function Header() {
     const [pageState, setPageState] = useState("Login");
     const location =useLocation();
     const navigate =useNavigate();
     const auth = getAuth();
+    const[ userid, setUserid] =useState();
+    const [ userinfo , setUserinfo] = useState();
+
+
     useEffect(() =>{
       onAuthStateChanged(auth, (user)=>{
         if(user){
             setPageState("Profile")
+            setUserid(user.uid)
+          
         }else{
             setPageState("Login")
         }
       })
     }, [auth])
+
+    useEffect(()=>{
+      async function fetchingUser(){
+          const docRef = doc(db,"users" , userid)
+          const docSnap = await getDoc(docRef)
+          
+          if(docSnap.exists()){
+              setUserinfo(docSnap.data())
+                        
+          }
+      }
+      fetchingUser();
+    
+  },[userid ]);
+
+  
+
     function pathMatchRoute(route){
         if(route === location.pathname){
             return true

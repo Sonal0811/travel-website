@@ -23,6 +23,9 @@ export default function OAuth() {
           name: user.displayName,
           email: user.email,
           timestamp: serverTimestamp(),
+          tstamp : user.timestamp,
+          role : user.role,
+
         });
       }
 

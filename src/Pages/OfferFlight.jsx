@@ -5,16 +5,16 @@ import { toast } from 'react-toastify';
 import Spinner from '../components/Spinner';
 import Listingdestitems from '../components/Listingitems';
 
-export default function Offers() {
+export default function OfferFlight() {
   const [destination , setDestination] = useState(null);
   const [loading , setLoading] = useState(true);
   const [lastFetchDestination , setLastFetchDestination] = useState(null);
-  const [category , setCategory] = useState("category")
+  const [category , setCategory] = useState("categoryflight")
   useEffect(()=>{
    async function fetchDestination(){
     
      try{
-        const destinationRef = collection(db,"listing-destinations")
+        const destinationRef = collection(db,"listing-flight")
         const  q =query (destinationRef , where("offer" , "==", true), orderBy("timestamp", "desc"), limit(8));
          const querySnap = await getDocs(q);
          const lastVisible = querySnap.docs[querySnap.docs.length-1]
@@ -41,7 +41,7 @@ export default function Offers() {
 
  async function onFetchMoreListing(){
   try{
-    const destinationRef = collection(db,"listing-destinations")
+    const destinationRef = collection(db,"listing-flight")
     const  q =query (destinationRef , where("offer" , "==", true), orderBy("timestamp", "desc"),
     startAfter(lastFetchDestination), limit(4));
      const querySnap = await getDocs(q);
@@ -76,7 +76,7 @@ export default function Offers() {
         <main>
           <ul className="sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
             {destination.map((doc) =>(
-              <Listingdestitems key={doc.id} listing={doc.data} id={doc.id}  category={category} />
+              <Listingdestitems key={doc.id} listing={doc.data} id={doc.id} category={category} />
             ))}
           </ul>
         </main>

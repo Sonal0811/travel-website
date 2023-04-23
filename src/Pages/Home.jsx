@@ -4,11 +4,13 @@ import { collection, collectionGroup, getDocs, limit, orderBy, query, where } fr
 import Spinner from '../components/Spinner';
 import { db } from '../firebase';
 import { Link } from 'react-router-dom';
-import Listingdestitems from '../components/Listingdestitems';
+import Listingdestitems from '../components/Listingitems';
  
  export default function Home() {
     //offers 
     const [offerDestination , setOfferDesination] =useState(null)
+
+    const [category ,setCategory ] = useState("category")
     useEffect(()=>{
       async function fetchDestination(){
         try{
@@ -100,7 +102,7 @@ import Listingdestitems from '../components/Listingdestitems';
               hover:text-blue-900 transition duration-150 ease-in-out'>Show more offers</p>
               <ul className='sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
                 {offerDestination.map((desti) =>(
-                  <Listingdestitems key={desti.id} listing={desti.data} id={desti.id}/>
+                  <Listingdestitems key={desti.id} listing={desti.data} id={desti.id} category={category}/>
                 ))}
               </ul>
             </Link>
@@ -115,7 +117,7 @@ import Listingdestitems from '../components/Listingdestitems';
               hover:text-blue-900 transition duration-150 ease-in-out'>Show more nationl places</p>
               <ul className='sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
                 {nationalDestination.map((desti) =>(
-                  <Listingdestitems key={desti.id} listing={desti.data} id={desti.id}/>
+                  <Listingdestitems key={desti.id} listing={desti.data} id={desti.id} category={category}/>
                 ))}
               </ul>
             </Link>
@@ -130,7 +132,7 @@ import Listingdestitems from '../components/Listingdestitems';
               hover:text-blue-900 transition duration-150 ease-in-out'>Show more internationl places</p>
               <ul className='sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
                 {internationalDestination.map((desti) =>(
-                  <Listingdestitems key={desti.id} listing={desti.data} id={desti.id}/>
+                  <Listingdestitems key={desti.id} listing={desti.data} id={desti.id} category={category}/>
                 ))}
               </ul>
             </Link>

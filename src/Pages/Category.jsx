@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { db } from '../firebase';
 import { toast } from 'react-toastify';
 import Spinner from '../components/Spinner';
-import Listingdestitems from '../components/Listingdestitems';
+import Listingdestitems from '../components/Listingitems';
 import { useParams } from 'react-router';
 
 export default function Category() {
@@ -79,7 +79,7 @@ export default function Category() {
         <main>
           <ul className="sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
             {destination.map((doc) =>(
-              <Listingdestitems key={doc.id} listing={doc.data} id={doc.id}  />
+              <Listingdestitems key={doc.id} listing={doc.data} id={doc.id}  category={"category"}/>
             ))}
           </ul>
         </main>
