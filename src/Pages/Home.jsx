@@ -97,7 +97,7 @@ import Listingdestitems from '../components/Listingitems';
        {offerDestination && offerDestination.length >0 && (
           <div className='m-2 mb-6 '>
             <h2  className='px-3 text-2xl mt-6 font-semibold'>Recent Offers</h2>
-            <Link to="/offers">
+            <Link to="/offerdestination">
               <p className='px-3 text-sm text-blue-500 
               hover:text-blue-900 transition duration-150 ease-in-out'>Show more offers</p>
               <ul className='sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>

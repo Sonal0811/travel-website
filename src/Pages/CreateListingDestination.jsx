@@ -251,7 +251,7 @@ export default function CreateListingDestination() {
             value={true}
             onClick={onChange}
             className={`mr-3 px-7 py-3 font-medium text-sm uppercase shadow-md rounded hover:shadow-lg focus:shadow-lg active:shadow-lg transition duration-150 ease-in-out w-full ${
-              offer ? "bg-white text-black" : "bg-teal-600 text-white"
+              offer ? "bg-teal-600 text-white" : "bg-white text-black"
             }`}
           >
             yes
@@ -262,7 +262,7 @@ export default function CreateListingDestination() {
             value={false}
             onClick={onChange}
             className={`ml-3 px-7 py-3 font-medium text-sm uppercase shadow-md rounded hover:shadow-lg focus:shadow-lg active:shadow-lg transition duration-150 ease-in-out w-full ${
-              !offer ? "bg-white text-black" : "bg-teal-600 text-white"
+              !offer ? "bg-teal-600 text-white" : "bg-white text-black"
             }`}
           >
             no

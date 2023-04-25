@@ -27,6 +27,7 @@ import OfferFlight from "./Pages/OfferFlight";
 import OfferHotel from "./Pages/OfferHotel";
 import CategoryHotel from "./Pages/CategoryHotel";
 import CategoryFlight from "./Pages/CategoryFlight";
+import OfferDestination from "./Pages/OfferDestination";
 function App() {
   return (
     <>
@@ -45,6 +46,7 @@ function App() {
            <Route path='/offers' element={<Offers />}/>
            <Route path='/offerFlight' element={<OfferFlight />}/>
            <Route path='/offerHotel' element={<OfferHotel />}/>
+           <Route path='/offerdestination' element={<OfferDestination />}/>
 
            <Route path='/category/:categoryName' element={<Category />}/>
            <Route path='/categoryhotel/:categoryName' element={<CategoryHotel />}/>

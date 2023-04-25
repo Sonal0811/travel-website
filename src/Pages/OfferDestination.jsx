@@ -5,18 +5,18 @@ import { toast } from 'react-toastify';
 import Spinner from '../components/Spinner';
 import Listingdestitems from '../components/Listingitems';
 
-export default function OfferFlight() {
+export default function OfferDestination () {
   const [destination , setDestination] = useState(null);
   const [loading , setLoading] = useState(true);
   const [lastFetchDestination , setLastFetchDestination] = useState(null);
-  const [ searchterm , setSearchterm] = useState("");
-  const [category , setCategory] = useState("categoryflight")
+  const [category , setCategory] = useState("category")
+  const [ searchterm , setSearchterm] = useState("")
   useEffect(()=>{
    async function fetchDestination(){
     
      try{
-        const destinationRef = collection(db,"listing-flight")
-        const  q =query (destinationRef , where("offer" , "==", true), orderBy("timestamp", "desc"), limit(8));
+        const destinationRef = collection(db,"listing-destinations")
+        const  q =query (destinationRef , where("offer" , "==", true ), orderBy("timestamp", "desc"), limit(8));
          const querySnap = await getDocs(q);
          const lastVisible = querySnap.docs[querySnap.docs.length-1]
          setLastFetchDestination(lastVisible);
@@ -42,7 +42,7 @@ export default function OfferFlight() {
 
  async function onFetchMoreListing(){
   try{
-    const destinationRef = collection(db,"listing-flight")
+    const destinationRef = collection(db,"listing-destinations")
     const  q =query (destinationRef , where("offer" , "==", true), orderBy("timestamp", "desc"),
     startAfter(lastFetchDestination), limit(4));
      const querySnap = await getDocs(q);
@@ -61,7 +61,7 @@ export default function OfferFlight() {
      setDestination((prevState) => [...prevState, ...destination])
      setLoading(false)
  } catch (err) {
-     toast.error("could not find flight")
+     toast.error("could not find destinations")
  }
     
   }
@@ -69,7 +69,7 @@ export default function OfferFlight() {
 
   return (
     <div className='max-w-6xl mx-auto px-3' >
-      <h1 className='text-3xl text-center mt-6 front-bold mb-6font-serif underline-offset-2 text-indigo-700'>Current offers on Flights...</h1>
+      <h1 className='text-3xl text-center mt-6 front-bold mb-6 font-serif underline-offset-2 text-indigo-700'>Current offers on Destinations...</h1>
       {loading ? (
         <Spinner />
       ):destination && destination.length >0 ? (
@@ -86,13 +86,12 @@ export default function OfferFlight() {
              setSearchterm(event.target.value);
          }} />
          </div>
-
           <ul className="sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
             {destination.filter((val) => {
               if (searchterm === "") return val;
                else if (val.data.name.toLowerCase().includes(searchterm.toLowerCase()) ) return val;
             }).map((doc) =>(
-              <Listingdestitems key={doc.id} listing={doc.data} id={doc.id} category={category} />
+              <Listingdestitems key={doc.id} listing={doc.data} id={doc.id}  category={category}/>
             ))}
           </ul>
         </main>
