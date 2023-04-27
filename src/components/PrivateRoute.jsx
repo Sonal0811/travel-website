@@ -7,5 +7,7 @@ export default function PrivateRoute() {
     if(checkingStatus){
        return  <Spinner/>   
     }
+
+    console.log("Privaterout.js  login details " +loggedIn  +"   " +checkingStatus);
   return loggedIn ? <Outlet/> : <Navigate to="/sign-in-staff"/>;
 }

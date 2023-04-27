@@ -10,6 +10,7 @@ export default function Category() {
   const [destination , setDestination] = useState(null);
   const [loading , setLoading] = useState(true);
   const [lastFetchDestination , setLastFetchDestination] = useState(null);
+  const [ searchterm , setSearchterm] = useState("")
   const params =useParams();
   useEffect(()=>{
    async function fetchDestination(){
@@ -77,8 +78,22 @@ export default function Category() {
       ):destination && destination.length >0 ? (
         <>
         <main>
+        <div className="flex justify-center items-center">
+        <input 
+         type="text"
+         
+         placeholder="Search..."
+         className="bg-white px-3 text-center py-1.5 text-gray-700 border
+             border-gray-300  mb-6 mt-6 hover:border-slate-600 rounded transition duration-150 ease-in-out"
+         onChange={(event) => {
+             setSearchterm(event.target.value);
+         }} />
+         </div>
           <ul className="sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
-            {destination.map((doc) =>(
+            {destination.filter((val) => {
+              if (searchterm === "") return val;
+               else if (val.data.name.toLowerCase().includes(searchterm.toLowerCase()) ) return val;
+            }).map((doc) =>(
               <Listingdestitems key={doc.id} listing={doc.data} id={doc.id}  category={"category"}/>
             ))}
           </ul>

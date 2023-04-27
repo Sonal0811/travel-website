@@ -11,13 +11,16 @@ export default function Header() {
     const auth = getAuth();
     const[ userid, setUserid] =useState();
     const [ userinfo , setUserinfo] = useState();
+    const [role , setRole] = useState();
 
 
     useEffect(() =>{
       onAuthStateChanged(auth, (user)=>{
         if(user){
+          //  if(role === "staff"){
             setPageState("Profile")
             setUserid(user.uid)
+            //  }
           
         }else{
             setPageState("Login")
@@ -32,11 +35,11 @@ export default function Header() {
           
           if(docSnap.exists()){
               setUserinfo(docSnap.data())
-                        
+              setRole(docSnap.data().role);             
           }
       }
-      fetchingUser();
-    
+       fetchingUser();
+     
   },[userid ]);
 
   
