@@ -28,6 +28,8 @@ import OfferHotel from "./Pages/OfferHotel";
 import CategoryHotel from "./Pages/CategoryHotel";
 import CategoryFlight from "./Pages/CategoryFlight";
 import OfferDestination from "./Pages/OfferDestination";
+import Profileuser from "./Pages/Profileuser";
+import SelectPlan from "./Pages/SelectPlan";
 function App() {
   return (
     <>
@@ -38,8 +40,16 @@ function App() {
            <Route path="/profile" element={<PrivateRoute/>}>
            <Route path='/profile' element={<Profile />}/>
            </Route>
+           <Route path="/profileuser" element={<PrivateRoute/>}>
+           <Route path='/profileuser' element={<Profileuser />}/>
+           </Route>
+           <Route path="/selectplan" element={<PrivateRoute/>}>
+           <Route path='/selectplan' element={<SelectPlan />}/>
+           </Route>
+           
            <Route path='/sign-in' element={<SignIn />}/>
            <Route path="/sign-in-staff" element={<SignInStaff />}/>
+           
            <Route path='/sign-up' element={<SignUp />}/>
            <Route path='/forgot-Password' element={<ForgotPass />}/>
            <Route path="/forgot-password-staff" element={<ForgotPassStaff />}/>
@@ -47,7 +57,7 @@ function App() {
            <Route path='/offerFlight' element={<OfferFlight />}/>
            <Route path='/offerHotel' element={<OfferHotel />}/>
            <Route path='/offerdestination' element={<OfferDestination />}/>
-
+           
            <Route path='/category/:categoryName' element={<Category />}/>
            <Route path='/categoryhotel/:categoryName' element={<CategoryHotel />}/>
            <Route path='/categoryflight/:categoryName' element={<CategoryFlight />}/>

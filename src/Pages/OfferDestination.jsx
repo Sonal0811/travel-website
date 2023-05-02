@@ -4,6 +4,7 @@ import { db } from '../firebase';
 import { toast } from 'react-toastify';
 import Spinner from '../components/Spinner';
 import Listingdestitems from '../components/Listingitems';
+import Footer from './Footer/Footer';
 
 export default function OfferDestination () {
   const [destination , setDestination] = useState(null);
@@ -68,6 +69,7 @@ export default function OfferDestination () {
 
 
   return (
+    <div>
     <div className='max-w-6xl mx-auto px-3' >
       <h1 className='text-3xl text-center mt-6 front-bold mb-6 font-serif underline-offset-2 text-indigo-700'>Current offers on Destinations...</h1>
       {loading ? (
@@ -107,6 +109,8 @@ export default function OfferDestination () {
       ): (
         <p>There are no current offers</p>
       ) }
+       </div>
+      <Footer />
       </div>
   )
 }

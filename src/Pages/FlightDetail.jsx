@@ -18,6 +18,7 @@ import {BsSunFill} from "react-icons/bs"
 import {MdNightlightRound} from "react-icons/md"
 import {getAuth} from "firebase/auth"
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
+import Footer from './Footer/Footer';
 
 
 export default function FlightDetail() {
@@ -128,12 +129,12 @@ export default function FlightDetail() {
                 </ul>
             
                  
-                {destination.userRef === auth.currentUser?.uid && !contactBroker &&(
+                {auth.currentUser?.uid && !contactBroker &&(
                     <div className='mt-6 '>
                     <button onClick={()=>setContactBroker(true)} className='px-7 py-3 bg-blue-600 text-white font-medium 
                     text-sm uppercase rounded shadow-md hover:bg-blue-700 hover:shodow-lg 
                     focus: bg-blue-700 focus:shadow-lg w-full text-center transition 
-                    duration-150 ease-in-out'>Contact Broken </button>
+                    duration-150 ease-in-out'>Contact Broker </button>
                     </div>
                 )}
                 {contactBroker && (
@@ -159,6 +160,7 @@ export default function FlightDetail() {
   </MapContainer>
             </div>
         </div>
+        <Footer />
   </main>
   )
   

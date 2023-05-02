@@ -18,6 +18,7 @@ export default function SignUp() {
     name: "",
     email: "",
     password: "",
+    role:"client"
   });
   const { name, email, password } = formData;
   const navigate = useNavigate();
